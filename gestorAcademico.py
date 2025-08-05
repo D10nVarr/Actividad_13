@@ -4,14 +4,27 @@ def registrar_estudiante():
     global estudiantes
     while True:
         id_est=input("Ingrese la id del estudiante: ")
-        if id_est not in estudiantes:
-            break
+        if len(id_est.strip())==0:
+            print("El valor no puede quedar vacío")
         else:
-            print("Esta ID de estudiante ya existe")
-            continue
+            if id_est not in estudiantes:
+                break
+            else:
+                print("Esta ID de estudiante ya existe")
+                continue
+    while True:
+        nom_est=str(input("Ingrese el nombre del estudiante: "))
+        if len(nom_est.strip())==0:
+            print("El valor no puede quedar vacío")
+        else:
+            break
+    while True:
+        carrera_progra=input("Ingrese la carrera/programa académico: ")
+        if len(carrera_progra.strip())==0:
+            print("El valor no puede quedar vacío")
+        else:
+            break
 
-    nom_est=str(input("Ingrese el nombre del estudiante: "))
-    carrera_progra=input("Ingrese la carrera/programa académico: ")
     estudiantes[id_est]={
         "ID":id_est,
         "Nombre":nom_est,
@@ -30,11 +43,14 @@ def todo_notas():
         val_aprobado="Perdido"
         while True:
             curso_nom=(input("Ingrese el curso a añadir: ")).lower()
-            if curso_nom not in estudiantes[id_buscar]['Curso']:
-                break
+            if len(curso_nom.strip())==0:
+                print("El espacio no puede quedar vacío")
             else:
-                print("El curso ya esta registrado")
-                continue
+                if curso_nom not in estudiantes[id_buscar]['Curso']:
+                    break
+                else:
+                    print("El curso ya esta registrado")
+                    continue
 
         while True:
             try:
