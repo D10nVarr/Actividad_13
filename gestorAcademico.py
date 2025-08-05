@@ -51,7 +51,7 @@ def consultar_est(buscador):
             suma_notas = 0
             for curso_nom, valor in estudiantes[buscador]['Curso'].items():
                 print(f"Curso: {curso_nom}, nota: {valor['Nota']}")
-                suma_notas+=valor['Nota']
+                suma_notas+=valor['Nota'] #Permite ir sumando a la variable de suma el valor de cada nota al pasar por el ciclo
 
             promedio=suma_notas/len(estudiantes[buscador]['Curso'])
             print(f"Su promedio es de: {round(promedio,2)}")
@@ -60,6 +60,19 @@ def consultar_est(buscador):
 
 def verificador(buscador):
     if buscador in estudiantes:
+        print(f"\nNotas del estudiante {estudiantes[buscador]['Nombre']}")
+        for curso_nom, valor in estudiantes[buscador]['Curso'].items():
+            print(f"Curso: {curso_nom} - {valor['Valor_aprobacion']}")
+
+
+def mostrar_estudiantes():
+    for id_estudiante, valor in estudiantes.items():
+        print(f"ID del estudiante: {id_estudiante}")
+        print(f"Nombre del estudiante: {valor['Nombre']}")
+        print(f"Carrera: {valor['Carrera']}")
+
+        for curso_nom, temp in valor['Curso'].items():
+            print(f"Curso: {curso_nom} | Nota: {temp['Nota']}")
 
 
 while True:
@@ -90,6 +103,21 @@ while True:
             id_pa_buscar=input("Ingrese su ID de estudiante: ")
             consultar_est(id_pa_buscar)
 
+        case "4":
+            print("\nEscogio 'Verificación de aprobación' ")
+            id_pa_buscar = input("Ingrese su ID de estudiante: ")
+            verificador(id_pa_buscar)
+
+        case "5":
+            print("\nEscogio 'Mostrar registros' ")
+            mostrar_estudiantes()
+
+        case "6":
+            print("\nSaliendo del programa...")
+            break
+
+        case _:
+            print("\nOpción no valida")
 
 
 
