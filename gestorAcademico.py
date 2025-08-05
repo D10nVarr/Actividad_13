@@ -46,6 +46,9 @@ def todo_notas():
             except ValueError:
                 print(f"El valor de la nota de {curso_nom} no es valido")
 
+            except Exception as e:
+                print(f"A ocurrido un error inesperado {e}")
+
         if nota_curso>=61:
             val_aprobado="Aprobado"
 
