@@ -22,10 +22,9 @@ def todo_notas():
 
     if id_buscar in estudiantes:
         val_aprobado="Perdido"
-        todas_notas=[]
+
         curso_nom=str(input("Ingrese del curso a añadir: "))
         nota_curso=int(input(f"Ingrese la nota de {curso_nom}: : "))
-        todas_notas.append(nota_curso)
 
         if nota_curso>=61:
             val_aprobado="Aprobado"
@@ -33,17 +32,14 @@ def todo_notas():
         notas[curso_nom]={
             "Nota":nota_curso,
             "Valor_aprobacion":val_aprobado,
-            #"Suma":sum(todas_notas)
         }
-
         estudiantes[id_buscar]["Curso"].update(notas)
     else:
         print("No se ha encontrado al estudiante")
 
 
 def consultar_est(buscador):
-#Tambien como calculador de promedio
-
+#Tambien como calculador de promedio con ayuda del bucle de impresión de notas
     if buscador in estudiantes:
         print(f"\nNombre del estudiante: {estudiantes[buscador]['Nombre']}")
         print(f"Carrera: {estudiantes[buscador]['Carrera']}")
@@ -52,9 +48,18 @@ def consultar_est(buscador):
             print("No se ha encontrado ningun curso")
 
         else:
+            suma_notas = 0
             for curso_nom, valor in estudiantes[buscador]['Curso'].items():
                 print(f"Curso: {curso_nom}, nota: {valor['Nota']}")
-            promedio=len(estudiantes[buscador]['Curso'])
+                suma_notas+=valor['Nota']
+
+            promedio=suma_notas/len(estudiantes[buscador]['Curso'])
+            print(f"Su promedio es de: {round(promedio,2)}")
+    else:
+        print("No se ha encontrado al estudiante")
+
+def verificador(buscador):
+    if buscador in estudiantes:
 
 
 while True:
@@ -62,11 +67,10 @@ while True:
     print("\n---PORTAL ACADÉMICO---")
     print("\n1. Agregar estudiante")
     print("2. Agregar curso con nota")
-    print("3. Consultar estudiante")
-    print("4. Calcular promedio")
-    print("5. Verificación de aprobación")
-    print("6. Mostrar todos los registros")
-    print("7. Salir")
+    print("3. Consultar estudiante y su promedio")
+    print("4. Verificación de aprobación")
+    print("5. Mostrar todos los registros")
+    print("6. Salir")
 
     opcion=input("Seleccione una opción: ")
 
