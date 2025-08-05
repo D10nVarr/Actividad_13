@@ -2,8 +2,14 @@ estudiantes={}
 
 def registrar_estudiante():
     global estudiantes
+    while True:
+        id_est=input("Ingrese la id del estudiante: ")
+        if id_est not in estudiantes:
+            break
+        else:
+            print("Esta ID de estudiante ya existe")
+            continue
 
-    id_est=input("Ingrese la id del estudiante: ")
     nom_est=str(input("Ingrese el nombre del estudiante: "))
     carrera_progra=input("Ingrese la carrera/programa académico: ")
     estudiantes[id_est]={
@@ -18,13 +24,27 @@ def todo_notas():
     global estudiantes
     notas={}
     id_buscar=input("Ingrese su ID de estudiante: ")
-    print(f"Bienvenido {estudiantes[id_buscar]['Nombre']}")
 
     if id_buscar in estudiantes:
+        print(f"Bienvenido {estudiantes[id_buscar]['Nombre']}")
         val_aprobado="Perdido"
+        while True:
+            curso_nom=(input("Ingrese el curso a añadir: ")).lower()
+            if curso_nom not in estudiantes[id_buscar]['Curso']:
+                break
+            else:
+                print("El curso ya esta registrado")
+                continue
 
-        curso_nom=str(input("Ingrese del curso a añadir: "))
-        nota_curso=int(input(f"Ingrese la nota de {curso_nom}: : "))
+        while True:
+            try:
+                nota_curso=int(input(f"Ingrese la nota de {curso_nom}: "))
+                if nota_curso < 0 or nota_curso > 100:
+                    print("La nota no estra dentro del rango de 0 a 100")
+                else:
+                    break
+            except ValueError:
+                print(f"El valor de la nota de {curso_nom} no es valido")
 
         if nota_curso>=61:
             val_aprobado="Aprobado"
@@ -63,6 +83,8 @@ def verificador(buscador):
         print(f"\nNotas del estudiante {estudiantes[buscador]['Nombre']}")
         for curso_nom, valor in estudiantes[buscador]['Curso'].items():
             print(f"Curso: {curso_nom} - {valor['Valor_aprobacion']}")
+    else:
+        print("No se ha encontrado al estudiante")
 
 
 def mostrar_estudiantes():
@@ -94,23 +116,35 @@ while True:
             print("Estudiante agregado exitosamente")
 
         case "2":
-            print("\nEscogio 'Agregar cursos con nota' ")
-            todo_notas()
-            print("Curso agregado exitosamente")
+            if len(estudiantes) > 0:
+                print("\nEscogio 'Agregar cursos con nota' ")
+                todo_notas()
+                print("Curso agregado exitosamente")
+            else:
+                print("No se ha agregado ningun registro")
 
         case "3":
-            print("\nEscogio 'Consultar estudiantes' ")
-            id_pa_buscar=input("Ingrese su ID de estudiante: ")
-            consultar_est(id_pa_buscar)
+            if len(estudiantes) > 0:
+                print("\nEscogio 'Consultar estudiantes' ")
+                id_pa_buscar=input("Ingrese su ID de estudiante: ")
+                consultar_est(id_pa_buscar)
+            else:
+                print("No se ha agregado ningun registro")
 
         case "4":
-            print("\nEscogio 'Verificación de aprobación' ")
-            id_pa_buscar = input("Ingrese su ID de estudiante: ")
-            verificador(id_pa_buscar)
+            if len(estudiantes) > 0:
+                print("\nEscogio 'Verificación de aprobación' ")
+                id_pa_buscar = input("Ingrese su ID de estudiante: ")
+                verificador(id_pa_buscar)
+            else:
+                print("No se ha agregado ningun registro")
 
         case "5":
-            print("\nEscogio 'Mostrar registros' ")
-            mostrar_estudiantes()
+            if len(estudiantes) > 0:
+                print("\nEscogio 'Mostrar registros' ")
+                mostrar_estudiantes()
+            else:
+                print("No se ha agregado ningun registro")
 
         case "6":
             print("\nSaliendo del programa...")
